@@ -1,10 +1,10 @@
 import React from 'react';
-import Header from './Header';
-import Hero from './Hero';
+import Header from '../components/Header';
+import Hero from '../components/Hero';
 
 const Home = () => {
   return (
-    <div className='bg-discord_bg'>
+    <div className='bg-discord_blue'>
       <Header />
       <Hero />
     </div>
