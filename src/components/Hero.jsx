@@ -8,7 +8,7 @@ const Hero = () => {
       <div className='p-7 py-9 h-screen md:h-83vh md:flex relative'>
         <div className='flex text-white  flex-col gap-7 md:max-w-md lg:max-w-none '>
           <h1 className='font-extrabold text-7xl uppercase lg:text-center'>
-            imagine a place...
+            This is Just a Clone...
           </h1>
           <h2 className='text-lg font-light tracking-wide lg:max-w-3xl lg:text-center w-full'>
             ...where you can belong to a school club, a gaming group, or a
@@ -26,7 +26,7 @@ const Hero = () => {
             </button>
           </div>
         </div>
-        <div className=' flex-grow'>
+        <div className=' flex-grow '>
           <img
             src={images.hero_img_2}
             className='md:hidden mr-80 md:my-20 lg:right-1/2 absolute lg:block '
@@ -34,7 +34,7 @@ const Hero = () => {
           <img
             src={images.hero_img_1}
             alt='image'
-            className='hidden md:inline absolute md:my-20 '
+            className='hidden lg:-right-1/2 md:inline absolute md:my-20 '
           />
         </div>
       </div>

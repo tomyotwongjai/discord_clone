@@ -1,10 +1,27 @@
 import React from 'react';
 import { images } from '../constants';
 import { MenuIcon } from '@heroicons/react/outline';
-import firebase from 'firebase/compat/app';
-import { auth } from '../firebase';
+import { auth, provider } from '../firebase';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import { useNavigate } from 'react-router-dom';
+import { signInWithPopup } from 'firebase/auth';
 
-const Header = () => {
+// import 'firebase/app';
+// import { auth } from '../firebase';
+// import firebase from 'firebase/compat/app';
+
+function Header() {
+  const [user] = useAuthState(auth);
+  const navigate = useNavigate();
+
+  const signIn = (e) => {
+    e.preventDefault();
+
+    signInWithPopup(auth, provider)
+      .then(() => navigate('/channel'))
+      .catch((error) => alert(error.message));
+  };
+
   return (
     <nav className=' flex items-center justify-between py-4 px-6  '>
       <a href='/'>
@@ -25,16 +42,17 @@ const Header = () => {
       <div className='flex space-x-4'>
         <button
           className='bg-white m-2 p-2 rounded-full text-xs md:text-sm px-4 focus:outline-none hover:shadow-2xl hover:text-discord_purple  transition duration-200 ease-in-out lg:mr-96  whitespace-nowrap font-medium '
-          onClick={() =>
-            auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider())
-          }
+          onClick={!user ? signIn : () => navigate('/channel')}
+          // onClick={() =>
+          //   auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider())
+          // }
         >
-          Open Discord
+          {!user ? 'Login' : 'Open Discrod'}
         </button>
         <MenuIcon className='h-9 m-2 text-white cursor-pointer lg:hidden' />
       </div>
     </nav>
   );
-};
+}
 
 export default Header;
