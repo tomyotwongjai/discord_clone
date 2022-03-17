@@ -11,6 +11,8 @@ module.exports = {
         discord_blurple: '#7289da',
         discord_purple: '#5865f2',
         discord_green: '#3ba55c',
+        discord_serverbg: '#36393f',
+        discord_channelbg: '#2f3136',
       },
       height: {
         '83vh': '83vh',
