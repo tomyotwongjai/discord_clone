@@ -6,10 +6,6 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
 import { signInWithPopup } from 'firebase/auth';
 
-// import 'firebase/app';
-// import { auth } from '../firebase';
-// import firebase from 'firebase/compat/app';
-
 function Header() {
   const [user] = useAuthState(auth);
   const navigate = useNavigate();
@@ -18,7 +14,7 @@ function Header() {
     e.preventDefault();
 
     signInWithPopup(auth, provider)
-      .then(() => navigate('/channel'))
+      .then(() => navigate('/channels'))
       .catch((error) => alert(error.message));
   };
 
@@ -32,23 +28,29 @@ function Header() {
         />
       </a>
       <div className='hidden lg:flex space-x-6 text-white'>
-        <a className='link'>Download</a>
-        <a className='link'>Nitro</a>
-        <a className='link'>Safety</a>
-        <a className='link'>support</a>
-        <a className='link'>Blog</a>
-        <a className='link'>Career</a>
+        <a href='/' className='link'>
+          Download
+        </a>
+        <a href='/' className='link'>
+          Nitro
+        </a>
+        <a href='/' className='link'>
+          Safety
+        </a>
+        <a href='/' className='link'>
+          support
+        </a>
+        <a href='/' className='link'>
+          Blog
+        </a>
+        <a href='/' className='link'>
+          Career
+        </a>
       </div>
       <div className='flex space-x-4'>
         <button
           className='bg-white m-2 p-2 rounded-full text-xs md:text-sm px-4 focus:outline-none hover:shadow-2xl hover:text-discord_purple  transition duration-200 ease-in-out lg:mr-96  whitespace-nowrap font-medium '
-          onClick={!user ? signIn : () => navigate('/channel')}
-
-          /* second way using Auth context */
-
-          // onClick={() =>
-          //   auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider())
-          // }
+          onClick={!user ? signIn : () => navigate('/channels')}
         >
           {!user ? 'Login' : 'Open Discord'}
         </button>

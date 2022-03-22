@@ -1,7 +1,7 @@
 import { GoogleAuthProvider } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
-import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDNwft5yCMD53GNCNWJctMw-O1HmvdKJdY',
@@ -12,28 +12,12 @@ const firebaseConfig = {
   appId: '1:519731951168:web:eaad3b94fb71040fdcd1a5',
   measurementId: 'G-JXHBNS4ZVD',
 };
+
 // init firebase app
-initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
 
 //   init firebase services
-const db = getFirestore();
-
-// collection ref
-const colRef = collection(db, 'channels');
-
-// get collection data
-getDocs(colRef)
-  .then((snapshot) => {
-    let channels = [];
-
-    snapshot.docs.forEach((doc) => {
-      channels.push({ ...doc.data(), id: doc.id });
-    });
-    console.log(channels);
-  })
-  .catch((err) => {
-    console.log(err.message);
-  });
+const db = getFirestore(app);
 
 // firebase authentication
 const auth = getAuth();
@@ -43,8 +27,8 @@ const provider = new GoogleAuthProvider();
 
 /*  this act for user to select an account every time they sign in */
 
-provider.setCustomParameters({
-  prompt: 'select_account',
-});
+// provider.setCustomParameters({
+//   prompt: 'select_account',
+// });
 
 export { auth, provider, db };

@@ -32,17 +32,20 @@
 import React from 'react';
 import { ChevronDownIcon, PlusIcon } from '@heroicons/react/outline';
 import { useNavigate } from 'react-router-dom';
-// import { MicrophoneIcon, PhoneIcon, CogIcon } from '@heroicons/react/solid';
+import { MicrophoneIcon, PhoneIcon, CogIcon } from '@heroicons/react/solid';
 import ServerIcon from '../container/ServerIcon';
-// import { useAuthState } from 'react-firebase-hooks/auth';
+import { Navigate } from 'react-router-dom';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '../firebase';
 import { useCollection } from 'react-firebase-hooks/firestore';
 import ChannelComponent from '../components/ChannelComponent';
-import { collection, addDoc, Timestamp } from 'firebase/firestore';
+import ChatComponent from '../components/ChatComponent';
+import { collection, addDoc } from 'firebase/firestore';
 
 function Channel() {
   const navigate = useNavigate();
-  // const [user] = useAuthState(auth);
+  const [user] = useAuthState(auth);
+
   // Using useCollection insead of firebase query/doc
   const [channels] = useCollection(collection(db, 'channels'));
 
@@ -61,7 +64,6 @@ function Channel() {
       try {
         await addDoc(collection(db, 'channels'), {
           channelName: channelName,
-          created: Timestamp.now(),
         });
       } catch (err) {
         alert(err);
@@ -71,7 +73,11 @@ function Channel() {
 
   return (
     <>
+      {!user && <Navigate exact to='/' />}
+
       <div className='flex h-screen'>
+        {/* chat small side bar section */}
+
         <div className='flex flex-col  space-y-3 bg-[#202225] p-3 min-w-max'>
           <div className='server-default hover:bg-discord_purple'>
             <img src='https://rb.gy/kuaslg' alt='' className='h-5' />
@@ -85,11 +91,14 @@ function Channel() {
             <PlusIcon className='text-discord_green h-7 group-hover:text-white' />
           </div>
         </div>
-        <div className='bg-discord_channelbg flex-col min-w-max'>
-          <h2 className='text-white flex font-bold text-sm items-center justify-between border-b border-gray-800 p-3 hover:bg-[#34373c]'>
+
+        {/* Chat big side-bar section */}
+        <div className='bg-discord_channelbg flex flex-col min-w-max'>
+          <h4 className='text-white flex font-bold text-sm items-center justify-between border-b border-gray-800 p-3 hover:bg-[#34373c]'>
             Hello Channel
             <ChevronDownIcon className='h-5 ml-2' />
-          </h2>
+          </h4>
+
           <div className='text-[#8e9297] flex-grow overflow-y-scroll scrollbar-hide'>
             <div className='flex items-center p-2 mb-2'>
               <ChevronDownIcon className='h-3 mr-2' />
@@ -109,15 +118,44 @@ function Channel() {
                   channelName={doc.data().channelName}
                 />
               ))}
-
-              <button
-                onClick={handleLogout}
-                className='text-red-500 cursor-pointer'
-              >
-                Logout
-              </button>
             </div>
           </div>
+
+          {/* Chat side bar footer section */}
+
+          <div className='bg-[#292b2f] p-2 flex justify-between items-center space-x-8'>
+            <div className='flex items-center space-x-1'>
+              <img
+                src={user?.photoURL}
+                alt='user-img'
+                className='h-10 rounded-full cursor-pointer'
+                onClick={handleLogout}
+              />
+              <h4 className='text-white text-xs font-medium'>
+                {user?.displayName}
+                <span className='text-[#b9bbbe] block'>
+                  #{user?.uid.substring(0, 4)} <br /> Logout
+                </span>
+              </h4>
+            </div>
+
+            <div className='text-gray-400 flex justify-between items-center'>
+              <div className='hover:bg-[#3a3c43] p-2  rounded-md'>
+                <MicrophoneIcon className=' icon' />
+              </div>
+              <div className='hover:bg-[#3a3c43] p-2  rounded-md'>
+                <PhoneIcon className=' icon' />
+              </div>
+              <div className='hover:bg-[#3a3c43] p-2  rounded-md'>
+                <CogIcon className=' icon' />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Chat body section */}
+        <div className='bg-[#36393f] flex-grow'>
+          <ChatComponent />
         </div>
       </div>
     </>

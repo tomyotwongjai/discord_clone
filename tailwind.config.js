@@ -13,6 +13,7 @@ module.exports = {
         discord_green: '#3ba55c',
         discord_serverbg: '#36393f',
         discord_channelbg: '#2f3136',
+        custom_gray: '#72767d',
       },
       height: {
         '83vh': '83vh',
