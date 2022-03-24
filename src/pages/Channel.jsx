@@ -49,8 +49,8 @@ function Channel() {
   // Using useCollection insead of firebase query/doc
   const [channels] = useCollection(collection(db, 'channels'));
 
-  const handleLogout = async () => {
-    await auth.signOut();
+  const handleLogout = () => {
+    auth.signOut();
     navigate('/');
   };
 
@@ -110,7 +110,7 @@ function Channel() {
             </div>
 
             <div className='flex flex-col space-y-2 mb-4 px-2'>
-              {/* map through all chennels, and show it in realtime */}
+              {/* map through all channels, and show it in realtime */}
               {channels?.docs.map((doc) => (
                 <ChannelComponent
                   key={doc.id}

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { HashtagIcon, SearchIcon } from '@heroicons/react/outline';
 import {
   BellIcon,
@@ -14,23 +14,13 @@ import { useSelector } from 'react-redux';
 import { selectChannelId, selectChannelName } from '../features/channelSlice';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '../firebase';
-import {
-  useCollection,
-  useCollectionData,
-} from 'react-firebase-hooks/firestore';
+import { useCollection } from 'react-firebase-hooks/firestore';
 import {
   collection,
   doc,
   orderBy,
-  query,
-  onSnapshot,
-  setDoc,
   addDoc,
   serverTimestamp,
-  getDoc,
-  getDocs,
-  QuerySnapshot,
-  collectionGroup,
 } from 'firebase/firestore';
 import MessageComponent from './MessageComponent';
 
@@ -41,33 +31,36 @@ function ChatComponent() {
   const inputRef = useRef('');
   const chatRef = useRef(null);
 
-  const q = query(
-    collection(db, 'channels', channelId, 'messages'),
-    orderBy('timestamp', 'desc')
+  const [messages] = useCollection(
+    channelId && collection(db, 'channels', channelId, 'messages'),
+    orderBy('timeStamp', 'asc')
   );
-  const [messages] = useCollection(q);
 
   // create sub collection 'message' within 'channel' collection
-  const SendMessage = async (e) => {
+  async function SendMessage(e) {
     e.preventDefault();
 
     const docRef = doc(db, 'channels', channelId);
     const colRef = collection(docRef, 'messages');
 
     if (inputRef.currentvalue !== '') {
-      addDoc(colRef, {
-        timestamp: serverTimestamp(),
-        message: inputRef.current.value,
-        name: user?.displayName,
-        photoURL: user?.photoURL,
-        email: user?.email,
-      });
+      try {
+        await addDoc(colRef, {
+          timestamp: serverTimestamp(),
+          message: inputRef.current.value,
+          name: user?.displayName,
+          photoURL: user?.photoURL,
+          email: user?.email,
+        });
+      } catch (err) {
+        alert(err);
+      }
     }
 
     // After message send, value should be
     inputRef.current.value = '';
     scrollToBottom();
-  };
+  }
 
   function scrollToBottom() {
     chatRef.current.scrollIntoView({
@@ -117,6 +110,8 @@ function ChatComponent() {
         })}
         <div ref={chatRef} className='pb-16' />
       </main>
+
+      <div ref={chatRef} className='pb-16' />
       <div className='flex items-center p-2.5 bg-[#40444b] mx-5 mb-7 rounded-lg'>
         <PlusCircleIcon className='icon mr-4' />
         <form className=' flex flex-grow'>
