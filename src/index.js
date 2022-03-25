@@ -5,28 +5,15 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { Provider } from 'react-redux';
-import { ReactReduxFirebaseProvider } from 'react-redux-firebase';
-import { createFirestoreInstance } from 'react-redux-firebase';
+
 import { store } from './app/store';
 import ErrorBoundary from './error/ErrorBoundary';
-import firebase from 'firebase/compat/app';
-
-const rrfProps = {
-  firebase,
-  config: {
-    userProfile: 'users',
-  },
-  dispatch: store.dispatch,
-  createFirestoreInstance,
-};
 
 ReactDOM.render(
   <React.StrictMode>
     <ErrorBoundary>
       <Provider store={store}>
-        <ReactReduxFirebaseProvider {...rrfProps}>
-          <App />
-        </ReactReduxFirebaseProvider>
+        <App />
       </Provider>
     </ErrorBoundary>
   </React.StrictMode>,

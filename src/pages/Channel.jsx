@@ -1,40 +1,8 @@
-// import React, { useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
-// import { useAuthState } from 'react-firebase-hooks/auth';
-// import { auth } from '../firebase';
-
-// const Channel = () => {
-//   const navigate = useNavigate();
-//   const { user } = useAuthState(auth);
-
-//   const handleLogout = async () => {
-//     await auth.signOut();
-
-//     navigate('/');
-//   };
-
-//   useEffect(() => {
-//     if (user) {
-//       navigate('/');
-
-//       return;
-//     }
-//   }, [user, navigate]);
-
-//   return (
-//     <div onClick={handleLogout} className='text-red-500'>
-//       Logout
-//     </div>
-//   );
-// };
-
-// export default Channel;
-import React from 'react';
 import { ChevronDownIcon, PlusIcon } from '@heroicons/react/outline';
 import { useNavigate } from 'react-router-dom';
 import { MicrophoneIcon, PhoneIcon, CogIcon } from '@heroicons/react/solid';
 import ServerIcon from '../container/ServerIcon';
-import { Navigate } from 'react-router-dom';
+
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth, db } from '../firebase';
 import { useCollection } from 'react-firebase-hooks/firestore';
@@ -49,8 +17,9 @@ function Channel() {
   // Using useCollection insead of firebase query/doc
   const [channels] = useCollection(collection(db, 'channels'));
 
-  const handleLogout = () => {
-    auth.signOut();
+  const handleLogout = async () => {
+    await auth.signOut();
+
     navigate('/');
   };
 
@@ -73,8 +42,6 @@ function Channel() {
 
   return (
     <>
-      {!user && <Navigate exact to='/' />}
-
       <div className='flex h-screen'>
         {/* chat small side bar section */}
 
