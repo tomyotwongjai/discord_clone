@@ -1,21 +1,18 @@
 import React from 'react';
 import { images } from '../constants';
 import { MenuIcon } from '@heroicons/react/outline';
-import { auth, provider } from '../firebase';
+import { auth } from '../firebase';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useNavigate } from 'react-router-dom';
-import { signInWithPopup } from 'firebase/auth';
 
 function Header() {
   const [user] = useAuthState(auth);
   const navigate = useNavigate();
 
-  const signIn = (e) => {
-    e.preventDefault();
-
-    signInWithPopup(auth, provider)
-      .then(() => navigate('/channels'))
-      .catch((error) => alert(error.message));
+  const sendToLogin = () => {
+    if (!user) {
+      navigate('/login');
+    }
   };
 
   return (
@@ -50,9 +47,9 @@ function Header() {
       <div className='flex space-x-4'>
         <button
           className='bg-white m-2 p-2 rounded-full text-xs md:text-sm px-4 focus:outline-none hover:shadow-2xl hover:text-discord_purple  transition duration-200 ease-in-out lg:mr-96  whitespace-nowrap font-medium '
-          onClick={!user ? signIn : () => navigate('/channels')}
+          onClick={!user ? sendToLogin : () => navigate('/channels')}
         >
-          {!user ? 'Login' : 'Open Discord'}
+          {user ? 'Open Discord' : 'Login'}
         </button>
         <MenuIcon className='h-9 m-2 text-white cursor-pointer lg:hidden' />
       </div>

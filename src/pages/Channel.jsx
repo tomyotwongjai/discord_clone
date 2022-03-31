@@ -47,7 +47,9 @@ function Channel() {
 
         <div className='flex flex-col  space-y-3 bg-[#202225] p-3 min-w-max'>
           <div className='server-default hover:bg-discord_purple'>
-            <img src='https://rb.gy/kuaslg' alt='' className='h-5' />
+            <a href='/'>
+              <img src='https://rb.gy/kuaslg' alt='' className='h-5' />
+            </a>
           </div>
           <hr className='border-gray-500 mx-2 border w-8 max-auto' />
           <ServerIcon image='https://rb.gy/qidcpp' />

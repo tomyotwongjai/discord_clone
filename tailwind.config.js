@@ -2,6 +2,12 @@ module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     extend: {
+      backgroundImage: {
+        login_image: 'url("./assets/hero_img_3.svg")',
+      },
+      boxShadow: {
+        custom_shadow: '0px 2px 10px 0 rgb(0,0,0 / 20%)',
+      },
       fontFamily: {
         headline: ['Roboto', 'sans-serif'],
       },
