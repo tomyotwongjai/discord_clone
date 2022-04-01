@@ -9,6 +9,8 @@ function Header() {
   const [user] = useAuthState(auth);
   const navigate = useNavigate();
 
+  // created separate Login function in login page. This is just a redirect to login page. Auth check is done in login page. Send confirmation if login or not.
+
   const sendToLogin = () => {
     if (!user) {
       navigate('/login');
@@ -49,6 +51,7 @@ function Header() {
           className='bg-white m-2 p-2 rounded-full text-xs md:text-sm px-4 focus:outline-none hover:shadow-2xl hover:text-discord_purple  transition duration-200 ease-in-out lg:mr-96  whitespace-nowrap font-medium '
           onClick={!user ? sendToLogin : () => navigate('/channels')}
         >
+          {/* If No user?  send to Login, else change from login to Open discord */}
           {user ? 'Open Discord' : 'Login'}
         </button>
         <MenuIcon className='h-9 m-2 text-white cursor-pointer lg:hidden' />

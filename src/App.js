@@ -3,6 +3,7 @@ import Home from './pages/Home';
 import Channel from './pages/Channel';
 import PrivateRoute from './privateRoute/PrivateRoute';
 import Login from './pages/Login';
+import Register from './pages/Register';
 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
@@ -16,6 +17,7 @@ const App = () => {
           <Route path='/channels/:id' element={<Channel />} />
         </Route>
         <Route path='/login' element={<Login />} />
+        <Route path='/register' element={<Register />} />
       </Routes>
     </Router>
   );
