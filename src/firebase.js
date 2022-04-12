@@ -10,6 +10,7 @@ const firebaseConfig = {
   storageBucket: 'chatapp2-2ce57.appspot.com',
   messagingSenderId: '519731951168',
   appId: '1:519731951168:web:eaad3b94fb71040fdcd1a5',
+  measurementId: 'G-JXHBNS4ZVD',
 };
 
 // init firebase app
