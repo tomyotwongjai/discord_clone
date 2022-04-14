@@ -1,12 +1,14 @@
 import React from 'react';
 import { DownloadIcon } from '@heroicons/react/outline';
 import images from '../constants/images';
+import { useNavigate } from 'react-router-dom';
 
 const Hero = () => {
+  const navigate = useNavigate();
   return (
     // main hero section
     <>
-      <div className=' pb-8 md:pb-0 lg:flex lg:justify-center lg:items-center relative overflow-hidden my-10'>
+      <div className='  md:pb-0  flex items-center justify-center'>
         <div className='p-7 py-9 h-screen md:h-83vh md:flex relative'>
           <div className='flex text-white  flex-col gap-7 md:max-w-md lg:max-w-none '>
             <h1 className='font-extrabold text-7xl uppercase lg:text-center'>
@@ -140,7 +142,10 @@ const Hero = () => {
           </div>
 
           <div className='flex flex-col justify-start items-start sm:flex-row md:flex-col lg:flex-row lg:items-center lg:justify-center sm:item-center md:item-start gap-6'>
-            <button className='bg-discord_purple text-white m-2 p-2 rounded-full text-xs md:text-sm px-4 focus:outline-none hover:shadow-2xl hover:bg-discord_blurple  transition duration-200 ease-in-out lg:mr-96 ml-40  whitespace-nowrap font-medium '>
+            <button
+              className='bg-discord_purple text-white m-2 p-2 rounded-full text-xs md:text-sm px-4 focus:outline-none hover:shadow-2xl hover:bg-discord_blurple  transition duration-200 ease-in-out lg:mr-96 ml-40  whitespace-nowrap font-medium '
+              onClick={() => navigate('/register')}
+            >
               sign up
             </button>
           </div>

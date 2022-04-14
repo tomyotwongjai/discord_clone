@@ -9,6 +9,7 @@ import { useCollection } from 'react-firebase-hooks/firestore';
 import ChannelComponent from '../components/ChannelComponent';
 import ChatComponent from '../components/ChatComponent';
 import { collection, addDoc } from 'firebase/firestore';
+import { useAuth } from '../contexts/AuthContext';
 
 function Channel() {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ function Channel() {
   const [channels] = useCollection(collection(db, 'channels'));
 
   const handleLogout = async () => {
-    await auth.signOut();
+    await auth.signOut(useAuth);
 
     navigate('/');
   };

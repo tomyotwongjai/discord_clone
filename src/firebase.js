@@ -20,7 +20,7 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // firebase authentication
-const auth = getAuth();
+const auth = getAuth(app);
 
 // added authentication provider
 const provider = new GoogleAuthProvider();
