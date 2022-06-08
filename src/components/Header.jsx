@@ -47,6 +47,7 @@ function Header() {
         </a>
       </div>
       <div className='flex space-x-4'>
+      Click login for test email & password
         <button
           className='bg-white m-2 p-2 rounded-full text-xs md:text-sm px-4 focus:outline-none hover:shadow-2xl hover:text-discord_purple  transition duration-200 ease-in-out lg:mr-96  whitespace-nowrap font-medium '
           onClick={!user ? sendToLogin : () => navigate('/channels')}

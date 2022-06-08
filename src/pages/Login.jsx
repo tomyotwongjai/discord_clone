@@ -59,7 +59,10 @@ const Login = () => {
             Welcom back!
           </h3>
           <p className='text-center text-m text-[#b9bbbe]'>
-            We're so excited to see you again!
+            <span>Test Login: </span>
+            <br />
+            email: test@gmail.com
+            pass: test123
           </p>
           <form
             className='relative'
